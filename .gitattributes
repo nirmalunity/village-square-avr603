@@ -1,0 +1,31 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Git attributes — The Village Square (AVR603)
+# ─────────────────────────────────────────────────────────────────────────────
+# No Git LFS: all large binary art is excluded via .gitignore and delivered
+# separately, so everything committed here is small text or small binaries.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Treat Unity YAML as text with LF endings so diffs and merges stay readable
+*.cs         text eol=lf diff=csharp
+*.shader     text eol=lf
+*.compute    text eol=lf
+*.unity      text eol=lf merge=unityyamlmerge
+*.prefab     text eol=lf merge=unityyamlmerge
+*.asset      text eol=lf merge=unityyamlmerge
+*.mat        text eol=lf merge=unityyamlmerge
+*.controller text eol=lf merge=unityyamlmerge
+*.anim       text eol=lf merge=unityyamlmerge
+*.meta       text eol=lf merge=unityyamlmerge
+*.yaml       text eol=lf
+*.yml        text eol=lf
+*.json       text eol=lf
+*.md         text eol=lf
+
+# Binary — never try to diff or merge these
+*.onnx  binary
+*.mp3   binary
+*.wav   binary
+*.ogg   binary
+*.png   binary
+*.jpg   binary
+*.fbx   binary

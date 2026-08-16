@@ -1,0 +1,87 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Unity .gitignore — The Village Square (AVR603)
+# ─────────────────────────────────────────────────────────────────────────────
+# Commits source code, scenes, prefabs and project settings.
+# Large binary art assets are delivered separately (see README).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Auto-generated Unity folders (Library alone is ~3.8 GB) ──────────────────
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# ── IDE / solution files (regenerated automatically) ─────────────────────────
+.vs/
+.idea/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# ── Build outputs ────────────────────────────────────────────────────────────
+ExportedObj/
+*.apk
+*.aab
+*.unitypackage
+*.app
+crashlytics-build.properties
+
+# ── Unity crash recovery / auto-upgrade leftovers ────────────────────────────
+/[Aa]ssets/_Recovery/
+/[Aa]ssets/_Recovery.meta
+/[Aa]ssets/_TerrainAutoUpgrade/
+/[Aa]ssets/_TerrainAutoUpgrade.meta
+sysinfo.txt
+
+# ── ML-Agents training output ────────────────────────────────────────────────
+# Full PPO runs (checkpoints, TensorBoard logs) are regenerable.
+# The final trained model in Assets/ML/ IS committed.
+/results/
+
+# ── Editor tooling (one-time scene builders, not needed to run the game) ─────
+/[Aa]ssets/Editor/
+/[Aa]ssets/Editor.meta
+/[Aa]ssets/Scripts/Editor/
+/[Aa]ssets/Scripts/Editor.meta
+
+# ─────────────────────────────────────────────────────────────────────────────
+# LARGE BINARY ART — delivered separately, not committed
+# ─────────────────────────────────────────────────────────────────────────────
+# Character models & animations (~1.5 GB; four .fbx exceed GitHub's 100 MB cap)
+/[Aa]ssets/Characters/
+/[Aa]ssets/Characters.meta
+
+# Third-party Asset Store packs — redistribution restricted by their EULA,
+# and re-downloadable from the Unity Asset Store.
+/[Aa]ssets/MyDreamGameStudio/
+/[Aa]ssets/MyDreamGameStudio.meta
+/[Aa]ssets/Silver_Cats/
+/[Aa]ssets/Silver_Cats.meta
+/[Aa]ssets/Polytope Studio/
+/[Aa]ssets/Polytope Studio.meta
+/[Aa]ssets/Packages/
+/[Aa]ssets/Packages.meta
+
+# ── OS noise ─────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini

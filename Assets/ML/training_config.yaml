@@ -1,0 +1,94 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Village Square — ML-Agents PPO Training Config
+# ─────────────────────────────────────────────────────────────────────────────
+# Usage (from project root):
+#   mlagents-learn Assets/ML/training_config.yaml --run-id=ZombiePPO
+# Then press Play in Unity.  Training prints to the terminal.
+#
+# After training completes:
+#   results/ZombiePPO/ZombieBrain/ZombieBrain-XXXXXX.onnx
+# Drag that file into BehaviorParameters → Model on any zombie prefab.
+# Set BehaviorParameters → Behavior Type → Inference Only.
+# ─────────────────────────────────────────────────────────────────────────────
+
+behaviors:
+  ZombieBrain:
+    trainer_type: ppo
+
+    # ── Hyperparameters ───────────────────────────────────────────────────────
+    hyperparameters:
+      # Batch size: how many experiences are used in one gradient update.
+      # Smaller = noisier updates but faster adaptation.
+      batch_size: 128
+
+      # Buffer size: total experiences collected before any gradient step.
+      # Higher = more stable gradients; set to ~32× batch_size.
+      buffer_size: 4096
+
+      # Learning rate for the Adam optimiser.
+      learning_rate: 3.0e-4
+
+      # Entropy regularisation — keeps the policy from collapsing to one action.
+      # Higher beta = more exploration. Start high, let it decay.
+      beta: 5.0e-3
+
+      # PPO clipping threshold — limits how much the policy can change per update.
+      epsilon: 0.2
+
+      # Generalised Advantage Estimation lambda.
+      # Trades off bias vs variance in the advantage estimate.
+      lambd: 0.95
+
+      # Gradient descent passes per buffer of data.
+      num_epoch: 3
+
+      # Decay learning rate linearly over training.
+      learning_rate_schedule: linear
+
+    # ── Neural network ────────────────────────────────────────────────────────
+    network_settings:
+      # Normalise observations — important when inputs have very different scales.
+      normalize: true
+
+      # Two hidden layers of 128 units — enough capacity for 11 inputs / 4 actions.
+      hidden_units: 128
+      num_layers: 2
+
+      # tanh activation (default for discrete action spaces)
+      vis_encode_type: simple
+
+    # ── Reward signal ─────────────────────────────────────────────────────────
+    reward_signals:
+      extrinsic:
+        # Discount factor — how much the agent values future rewards.
+        # 0.99 = very far-sighted; appropriate for multi-step combat strategy.
+        gamma: 0.99
+
+        # Scalar multiplier on the reward coming from the game.
+        # Keep at 1.0 since rewards are already in a reasonable range.
+        strength: 1.0
+
+      # Uncomment the block below to add Curiosity — this gives a bonus reward
+      # for encountering novel observations, which helps when sparse rewards
+      # cause the agent to get stuck in a sub-optimal local policy.
+      #
+      # curiosity:
+      #   gamma: 0.99
+      #   strength: 0.01
+      #   encoding_size: 64
+      #   learning_rate: 3.0e-4
+
+    # ── Training length ───────────────────────────────────────────────────────
+    # First validate this reward/environment revision for 200k steps. Promote it
+    # to a longer run only after the scatter-completion metrics remain healthy.
+    max_steps: 200000
+
+    # How many steps each agent takes before computing advantages.
+    time_horizon: 128
+
+    # How often to log metrics to TensorBoard.
+    summary_freq: 10000
+
+    # Checkpoint every 50k steps — lets you test intermediate models.
+    checkpoint_interval: 50000
+    keep_checkpoints: 20
